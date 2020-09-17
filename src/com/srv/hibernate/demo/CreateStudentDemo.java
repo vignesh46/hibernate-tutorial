@@ -21,7 +21,7 @@ public class CreateStudentDemo {
 			try (Session session = factory.getCurrentSession()) {
 
 				session.beginTransaction();
-
+				
 				session.save(student1);
 
 				session.getTransaction().commit();
