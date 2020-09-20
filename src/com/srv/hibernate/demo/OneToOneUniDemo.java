@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.srv.hibernate.demo.entity.Instructor;
 import com.srv.hibernate.demo.entity.InstructorDetail;
 
-public class OneToOneDemo {
+public class OneToOneUniDemo {
 
 	public static void main(String[] args) {
 
@@ -31,13 +31,32 @@ public class OneToOneDemo {
 				session.getTransaction().commit();
 
 			}
+			
+			// Create
+			try (Session session = factory.getCurrentSession()) {
 
+				session.beginTransaction();
+
+				Instructor instructor = new Instructor("Vignesh", "S R", "srvigneshsr@gmail.com");
+
+				InstructorDetail instructorDetail = new InstructorDetail("http://www.youtube.com/vignesh",
+						"Love To Code");
+
+				instructorDetail.setInstructor(instructor);
+
+				session.save(instructorDetail);
+
+				session.getTransaction().commit();
+
+			}
+
+			 
 			// Delete
 			try (Session session = factory.getCurrentSession()) {
 
 				session.beginTransaction();
 
-				int theId = 1;
+				int theId = 6;
 				Instructor instructor = session.get(Instructor.class, theId);
 
 				if (instructor != null) {
@@ -49,7 +68,6 @@ public class OneToOneDemo {
 				}
 
 				session.getTransaction().commit();
-
 			}
 
 		}
